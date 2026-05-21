@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Streamlit cache
+.streamlit/secrets.toml
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Local data files (datasets subidos por el usuario)
+*.csv
+*.xlsx
+*.xls
+*.json
+uploads/
+
+# Modelos guardados
+*.pkl
+*.joblib
+
+# Reportes generados
+*.pdf
+exports/
