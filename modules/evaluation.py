@@ -303,11 +303,8 @@ def _tab_comparison(df: pd.DataFrame, meta: Dict) -> None:
             angularaxis=dict(gridcolor='rgba(148,163,184,0.2)'),
             bgcolor='rgba(26,26,46,0.5)',
         ),
-        paper_bgcolor='rgba(15,15,26,0)',
-        font=dict(color='#E2E8F0'),
-        height=440,
-        title=dict(text='Comparación Multi-Métrica', font=dict(color='#A78BFA')),
     )
+    apply_layout(fig_radar, 'Comparación Multi-Métrica', height=440)
     st.plotly_chart(fig_radar, use_container_width=True)
     
     # Barras por métrica

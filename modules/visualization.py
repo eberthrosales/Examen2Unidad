@@ -49,6 +49,11 @@ def apply_layout(fig: go.Figure, title: str = '', height: int = 400) -> go.Figur
         height=height,
         **PLOTLY_LAYOUT
     )
+    import streamlit as st
+    if 'pdf_figures' not in st.session_state:
+        st.session_state['pdf_figures'] = {}
+    if title:
+        st.session_state['pdf_figures'][title] = fig
     return fig
 
 
@@ -375,9 +380,8 @@ def split_donut(train_pct: float, val_pct: float, test_pct: float,
             x=0.5, y=0.5, font_size=16,
             font_color='#E2E8F0', showarrow=False,
         )],
-        height=360,
-        **PLOTLY_LAYOUT,
     )
+    apply_layout(fig, 'Partición de Datos Train/Val/Test', height=360)
     return fig
 
 

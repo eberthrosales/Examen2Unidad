@@ -370,6 +370,33 @@ def _generate_pdf(df: pd.DataFrame, meta: Dict, title: str, author: str) -> Opti
         ]
         _pdf_table(pdf, ['Métrica', 'Valor (Test)'], test_rows, PRIMARY)
     
+    # Sección: Gráficos
+    pdf_figures = st.session_state.get('pdf_figures', {})
+    if pdf_figures:
+        _pdf_section(pdf, '6. ANEXO: GRÁFICOS GENERADOS', PRIMARY)
+        import tempfile
+        import os
+        for fig_title, fig in pdf_figures.items():
+            try:
+                img_bytes = fig.to_image(format="png", engine="kaleido", width=800, height=500)
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.png') as tmp:
+                    tmp.write(img_bytes)
+                    tmp_path = tmp.name
+                
+                pdf.add_page()
+                pdf.set_font('Helvetica', 'B', 12)
+                pdf.set_text_color(*PRIMARY)
+                pdf.cell(0, 10, fig_title[:80], align='C')
+                pdf.ln(10)
+                
+                pdf.image(tmp_path, x=15, w=180)
+                os.remove(tmp_path)
+            except Exception as e:
+                pdf.set_font('Helvetica', 'I', 10)
+                pdf.set_text_color(*GRAY)
+                pdf.cell(0, 10, f'(No se pudo exportar gráfico: {str(e)})', align='C')
+                pdf.ln(5)
+    
     # Footer
     pdf.set_y(-20)
     pdf.set_font('Helvetica', 'I', 8)
